@@ -59,6 +59,8 @@ struct list_head {
     struct list_head *next;
 };
 
+typedef struct list_head list_head_t;
+
 /**
  * LIST_HEAD - Declare list head and initialize it
  * @head: name of the new object
@@ -80,6 +82,11 @@ struct list_head {
  * list_del(_init) on an uninitialized node is undefined (unrelated memory is
  * modified, crashes, ...).
  */
+static inline void INIT_LIST_HEAD(struct list_head *head)
+{
+    head->next = head;
+    head->prev = head;
+}
 static inline void list_init(struct list_head *head)
 {
     head->next = head->prev = head;
